@@ -7,6 +7,12 @@ class Memo:
         self.ast = ast
         self.next_index = next_index
 
+class DifferentTokenException(Exception):
+    pass
+
+class FailedCapture(Exception):
+    pass
+
 class ParsableTokenStream(TokenizableBaseStream):
     cached_ast = {}
 
@@ -14,12 +20,12 @@ class ParsableTokenStream(TokenizableBaseStream):
         super(ParsableTokenStream, self).__init__(list(source.lex()))
 
     def is_match(self, other):
-        return isinstance(self.current(), type(other))
+        return isinstance(self.current(), other)
 
     def take(self, what):
         if self.is_match(what):
             return self.read()
-        raise Exception()
+        raise DifferentTokenException()
 
     def alt(self, func):
         self.take_snapshot()
@@ -42,7 +48,7 @@ class ParsableTokenStream(TokenizableBaseStream):
     def capture(self, func):
         if self.alt(func):
             return self.get(func)
-        return None
+        raise FailedCapture()
 
     def get(self, func):
         try:

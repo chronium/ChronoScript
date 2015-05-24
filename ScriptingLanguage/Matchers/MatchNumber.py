@@ -9,9 +9,6 @@ class MatchNumber(MatcherBase):
         current = tokenizer.current
         read = tokenizer.read
 
-        if current() in ('+', '-'):
-            accum += read()
-
         accum += self.numbers(current, read)
 
         if current() == '.':

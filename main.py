@@ -6,12 +6,12 @@ from ScriptingLanguage.Parser.Parser import Parser
 
 __author__ = 'chronium'
 
-input_string = 'test := -.75'
+input_string = '1 + 2 * 3'
 
-symbols = ['=', ' ', ':=', '-', '+', '.']
+symbols = ['=', ' ', ':=', '-', '+', '.', '*', '/']
 
 if __name__ == '__main__':
-    matchers = [MatchWhitespace(), MatchNumber(), MatchSymbol(symbols), MatchIdentifier(symbols)]
+    matchers = [MatchWhitespace(), MatchSymbol(symbols), MatchNumber(), MatchIdentifier(symbols)]
     lexer = Lexer(input_string, matchers)
 
     print("Input string:'{}' \nTokens:".format(input_string))
@@ -20,3 +20,7 @@ if __name__ == '__main__':
             print(token)
     except UnknownTokenException as e:
         print(e)
+
+    print('\nAST:')
+    parser = Parser(Lexer(input_string, matchers))
+    print(parser.parse())

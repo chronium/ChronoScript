@@ -42,13 +42,13 @@ class TokenizableBaseStream(object):
     def consume(self):
         self.index += 1
 
-    def peek(self, lookahead):
+    def peek(self, lookahead = 0):
         if self.eof(lookahead):
             return None
         return self.items[self.index + lookahead]
 
     def read(self):
-        tok = self.peek(0)
+        tok = self.peek()
         self.consume()
         return tok
 
