@@ -19,7 +19,7 @@ class ParsableTokenStream(TokenizableBaseStream):
     def take(self, what):
         if self.is_match(what):
             return self.read()
-        raise StandardError()
+        raise Exception()
 
     def alt(self, func):
         self.take_snapshot()

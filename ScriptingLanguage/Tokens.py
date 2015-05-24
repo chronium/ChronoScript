@@ -17,3 +17,7 @@ class Identifier(Token):
 class Symbol(Token):
     def __init__(self, value):
         super(Symbol, self).__init__(name='Symbol', value=value)
+
+class NumberLiteral(Token):
+    def __init__(self, value):
+        super(NumberLiteral, self).__init__(name='NumberLiteral', value=value)

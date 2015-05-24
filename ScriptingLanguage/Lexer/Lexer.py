@@ -3,6 +3,9 @@ from ScriptingLanguage.Tokens import EOF, Whitespace
 
 __author__ = 'chronium'
 
+class UnknownTokenException(Exception):
+    pass
+
 class Lexer(object):
     def __init__(self, source, matchers):
         self.tokenizer = Tokenizer(source)
@@ -25,3 +28,5 @@ class Lexer(object):
             token = match.is_match(self.tokenizer)
             if token:
                 return token
+
+        raise UnknownTokenException("Unexpected character:'%s'" % self.tokenizer.current())

@@ -1,19 +1,22 @@
-from ScriptingLanguage.Lexer.Lexer import Lexer
+from ScriptingLanguage.Lexer.Lexer import Lexer, UnknownTokenException
+from ScriptingLanguage.Matchers.MatchNumber import MatchNumber
 from ScriptingLanguage.Matchers.MatchSymbol import MatchSymbol
 from ScriptingLanguage.Matchers.Matchers import MatchWhitespace, MatchIdentifier
 from ScriptingLanguage.Parser.Parser import Parser
 
 __author__ = 'chronium'
 
-input_string = ':=:='
+input_string = 'test := -.75'
 
-symbols = ['=', ' ', ':=']
+symbols = ['=', ' ', ':=', '-', '+', '.']
 
 if __name__ == '__main__':
-    matchers = [MatchWhitespace(), MatchSymbol(symbols), MatchIdentifier(symbols)]
+    matchers = [MatchWhitespace(), MatchNumber(), MatchSymbol(symbols), MatchIdentifier(symbols)]
     lexer = Lexer(input_string, matchers)
-    parser = Parser(lexer)
 
     print("Input string:'{}' \nTokens:".format(input_string))
-    for token in parser.parse():
-        print(token)
+    try:
+        for token in lexer.lex():
+            print(token)
+    except UnknownTokenException as e:
+        print(e)

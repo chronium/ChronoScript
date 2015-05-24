@@ -22,13 +22,15 @@ class MatchIdentifier(MatcherBase):
 
     def is_match_impl(self, tokenizer):
         accum = ''
+        read = tokenizer.read
+        current = tokenizer.current
 
-        if tokenizer.current() == "'":
+        if current() == '_':
+            pass
+        elif current() in self.symbols or current().isdigit():
             return None
 
-        read = tokenizer.read
-
-        while not tokenizer.end() and tokenizer.current().strip() and tokenizer.current().strip() not in self.symbols:
+        while not tokenizer.end() and current().strip() and current().strip() not in self.symbols:
             accum += read()
 
         if len(accum) > 0:
