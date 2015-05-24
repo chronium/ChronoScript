@@ -9,11 +9,9 @@ class MatchSymbol(MatcherBase):
         self.symbols = symbols
 
     def is_match_impl(self, tokenizer):
-        val = ""
         for symbol in self.symbols:
-            for c in list(symbol):
-                if tokenizer.current() == c:
-                    val += tokenizer.read()
-            if val and (val in self.symbols):
-                return Symbol(val)
+            tok = ''.join(tokenizer.peek_multiple(length=len(symbol)))
+            if tok == symbol:
+                tokenizer.index += len(symbol)
+                return Symbol(tok)
         return None

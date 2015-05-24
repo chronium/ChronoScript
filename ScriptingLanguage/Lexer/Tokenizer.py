@@ -52,6 +52,11 @@ class TokenizableBaseStream(object):
         self.consume()
         return tok
 
+    def peek_multiple(self, length=1):
+        ind = self.index
+        temp = self.items[ind:ind + length]
+        return temp
+
     def take_snapshot(self):
         self.snapshot_indices.push(self.index)
 
