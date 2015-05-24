@@ -21,7 +21,7 @@ class MatchIdentifier(MatcherBase):
         self.symbols = symbols
 
     def is_match_impl(self, tokenizer):
-        accum = ""
+        accum = ''
 
         if tokenizer.current() == "'":
             return None

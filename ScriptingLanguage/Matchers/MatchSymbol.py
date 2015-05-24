@@ -5,8 +5,7 @@ __author__ = 'chronium'
 
 class MatchSymbol(MatcherBase):
     def __init__(self, symbols):
-        symbols.sort(key=len)
-        symbols.reverse()
+        symbols.sort(key=len, reverse=True)
         self.symbols = symbols
 
     def is_match_impl(self, tokenizer):
@@ -15,6 +14,6 @@ class MatchSymbol(MatcherBase):
             for c in list(symbol):
                 if tokenizer.current() == c:
                     val += tokenizer.read()
-            if val and val in self.symbols:
+            if val and (val in self.symbols):
                 return Symbol(val)
         return None

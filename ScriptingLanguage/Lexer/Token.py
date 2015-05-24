@@ -6,4 +6,4 @@ class Token(object):
         self.value = value
 
     def __str__(self):
-        return "Token(%s:'%s')" % (self.name, self.value)
+        return "Token(%s:'%s')".format(self.name, self.value)
