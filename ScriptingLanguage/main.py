@@ -8,16 +8,17 @@ input_string = 'test :='
 
 symbols = ['=', ' ', ':=']
 
-tokenizer = Tokenizer(input_string)
-matchers = [MatchWhitespace(), MatchSymbol(symbols), MatchIdentifier(symbols)]
-tokens = []
-while not tokenizer.eof(0):
-    for matcher in matchers:
-        match = matcher.is_match(tokenizer)
+if __name__ == '__main__':
+    tokenizer = Tokenizer(input_string)
+    matchers = [MatchWhitespace(), MatchSymbol(symbols), MatchIdentifier(symbols)]
+    tokens = []
+    while not tokenizer.eof(0):
+        for matcher in matchers:
+            match = matcher.is_match(tokenizer)
 
-        if match and match.value is not ' ':
-            tokens.append(match)
+            if match and match.value is not ' ':
+                tokens.append(match)
 
-print("Input string:'%s' \nTokens:" % input_string)
-for token in tokens:
-    print(token)
+    print("Input string:'%s' \nTokens:".format(input_string))
+    for token in tokens:
+        print(token)
