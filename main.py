@@ -19,6 +19,6 @@ if __name__ == '__main__':
             if match and match.value is not ' ':
                 tokens.append(match)
 
-    print("Input string:'{}' \nTokens:".format(input_string))
+    print("Input string:'%s' \nTokens:".format(input_string))
     for token in tokens:
         print(token)
