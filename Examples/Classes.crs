@@ -1,12 +1,17 @@
-class Person(name, age) -> Object
+class Person -> Object
+    this.init(name, age) =
+        this.name = name
+        this.age = age
+
     string() = "%s is %d years old" % (name, age)
     can_go_clubbing() =
         if age > 18 do
             true
         false
 
-class Child(name, age) -> Person
-    super(name, age)
+class Child -> Person
+    this.init(name, age) =
+        super(name, age)
 
     in_school() = age >= 7 && age < 14
 
