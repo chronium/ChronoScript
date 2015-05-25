@@ -6,12 +6,12 @@ from ScriptingLanguage.Parser.Parser import Parser
 
 __author__ = 'chronium'
 
-input_string = 'test()'
+input_string = '4 % 2 + -.3 * test() / 7'
 
 symbols = ['=', ' ', ':=', '-', '+', '.', '*', '/', '%', '(', ')', '->']
 
 if __name__ == '__main__':
-    matchers = [MatchWhitespace(), MatchSymbol(symbols), MatchNumber(), MatchIdentifier(symbols)]
+    matchers = [MatchWhitespace(), MatchNumber(), MatchSymbol(symbols), MatchIdentifier(symbols)]
     lexer = Lexer(input_string, matchers)
 
     print("Input string:'{}' \nTokens:".format(input_string))
