@@ -40,3 +40,10 @@ class ExpressionNode(Ast):
 class FunctionCallNode(Ast):
     def __init__(self, value):
         super(FunctionCallNode, self).__init__(value, 'Function Call')
+
+class AssignmentNode(Ast):
+    def __init__(self, value):
+        super(AssignmentNode, self).__init__(value, 'Assignment')
+
+    def __str__(self):
+        return "%s('%s', %s)" % (self.name, str(self.value[0]), str(self.value[1]))

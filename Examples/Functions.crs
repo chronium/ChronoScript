@@ -8,7 +8,7 @@ bar(x, y) =
 
     if y != 0 do
         y += foo(z)
-        stdout.writeln(y)
+        write(y)
 
 bar(5, 10)
 

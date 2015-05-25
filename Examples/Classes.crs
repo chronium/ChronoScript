@@ -19,5 +19,5 @@ people = [] -> Person
 people[] = init Person("John", 34)
 people[] = init Child("Jimmy", 13)
 
-stdout.writeln(people[1].in_school())
-stdout.writeln(people[0])
+write(people[1].in_school())
+write(people[0])

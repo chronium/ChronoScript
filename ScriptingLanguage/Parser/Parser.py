@@ -1,5 +1,6 @@
 from ScriptingLanguage.Parser.AstNode import  NumberNode, Program
 from ScriptingLanguage.Parser.ParsableTokenStream import ParsableTokenStream, DifferentTokenException, FailedCapture
+from ScriptingLanguage.Parser.parsers.Assignment import assignment
 from ScriptingLanguage.Parser.parsers.Expressions import muldiv, addsub, expression
 from ScriptingLanguage.Parser.parsers.Functions import function_call
 from ScriptingLanguage.Tokens import EOF, NumberLiteral, Symbol
@@ -14,15 +15,18 @@ class Parser:
         program = Program()
 
         while not isinstance(self.token_stream.current(), EOF):
-            program.add_node(self.multiple(expression, function_call))
+            try:
+                value = expression(self)
+            except FailedCapture:
+                try:
+                    value = function_call(self)
+                except FailedCapture:
+                    try:
+                        value = assignment(self)
+                    except FailedCapture:
+                        value = None
+            program.add_node(value)
         return program
-
-    def multiple(self, first, other):
-        try:
-            return first(self)
-        except FailedCapture:
-            val = other(self)
-            return val
 
     def check_symbol(self, value):
         if self.token_stream.is_match(Symbol):

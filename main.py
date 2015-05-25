@@ -6,7 +6,7 @@ from ScriptingLanguage.Parser.Parser import Parser
 
 __author__ = 'chronium'
 
-input_string = '4 % 2 + -.3 * test() / 7'
+input_string = open('Examples/test.crs').read()
 
 symbols = ['=', ' ', ':=', '-', '+', '.', '*', '/', '%', '(', ')', '->']
 
