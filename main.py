@@ -8,7 +8,7 @@ __author__ = 'chronium'
 
 input_string = '1 + 2 * 3'
 
-symbols = ['=', ' ', ':=', '-', '+', '.', '*', '/', '%']
+symbols = ['=', ' ', ':=', '-', '+', '.', '*', '/', '%', '(', ')']
 
 if __name__ == '__main__':
     matchers = [MatchWhitespace(), MatchSymbol(symbols), MatchNumber(), MatchIdentifier(symbols)]

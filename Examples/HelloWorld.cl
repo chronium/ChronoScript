@@ -1,3 +1,1 @@
-import * from System.Streams
-
-"Hello, world!" >> stdout
+stdout.writeln("Hello, world!")

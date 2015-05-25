@@ -1,5 +1,3 @@
-import * from System.Streams
-
 foo(x) = x * 3
 
 bar(x, y) =
@@ -10,7 +8,7 @@ bar(x, y) =
 
     if y != 0 do
         y += foo(z)
-        string(y) >> stdout
+        stdout.writeln(y)
 
 bar(5, 10)
 

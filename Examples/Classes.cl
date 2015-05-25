@@ -1,7 +1,5 @@
-import * from System.Streams
-
 class Person(name, age) -> Object
-    string() = "%s is %d years old" << (name, age)
+    string() = "%s is %d years old" % (name, age)
     can_go_clubbing() =
         if age > 18 do
             true
@@ -16,5 +14,5 @@ people = [] -> Person
 people[] = init Person("John", 34)
 people[] = init Child("Jimmy", 13)
 
-string(people[1].in_school()) >> stdout
-people[0] >> stdout
+stdout.writeln(people[1].in_school())
+stdout.writeln(people[0])
