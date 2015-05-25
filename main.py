@@ -6,9 +6,9 @@ from ScriptingLanguage.Parser.Parser import Parser
 
 __author__ = 'chronium'
 
-input_string = '1 + 2 * 3'
+input_string = 'test()'
 
-symbols = ['=', ' ', ':=', '-', '+', '.', '*', '/', '%', '(', ')']
+symbols = ['=', ' ', ':=', '-', '+', '.', '*', '/', '%', '(', ')', '->']
 
 if __name__ == '__main__':
     matchers = [MatchWhitespace(), MatchSymbol(symbols), MatchNumber(), MatchIdentifier(symbols)]

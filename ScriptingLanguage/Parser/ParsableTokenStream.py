@@ -31,15 +31,12 @@ class ParsableTokenStream(TokenizableBaseStream):
         self.take_snapshot()
         found = False
 
-        try:
-            current_index = self.index
-            ast = func()
+        current_index = self.index
+        ast = func()
 
-            if ast is not None:
-                found = True
-                self.cached_ast[current_index] = Memo(ast, self.index)
-        except StandardError:
-            pass
+        if ast is not None:
+            found = True
+            self.cached_ast[current_index] = Memo(ast, self.index)
 
         self.rollback_snapshot()
 

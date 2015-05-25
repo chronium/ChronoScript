@@ -1,11 +1,12 @@
 from ScriptingLanguage.Parser.AstNode import  NumberNode, Program
 from ScriptingLanguage.Parser.ParsableTokenStream import ParsableTokenStream, DifferentTokenException, FailedCapture
-from ScriptingLanguage.Parser.parsers.Expressions import muldiv, addsub
+from ScriptingLanguage.Parser.parsers.Expressions import muldiv, addsub, expression
+from ScriptingLanguage.Parser.parsers.Functions import function_call
 from ScriptingLanguage.Tokens import EOF, NumberLiteral, Symbol
 
 __author__ = 'chronium'
 
-class Parser(object):
+class Parser:
     def __init__(self, source):
         self.token_stream = ParsableTokenStream(source)
 
@@ -13,27 +14,15 @@ class Parser(object):
         program = Program()
 
         while not isinstance(self.token_stream.current(), EOF):
-            program.add_node(self.expression())
+            program.add_node(self.multiple(expression, function_call))
         return program
 
-    def expression(self):
-        def op():
-            try:
-                return addsub(self)
-            except FailedCapture:
-                return None
-        return self.token_stream.capture(op)
-
-    def number(self):
-        def op():
-            try:
-                value = 1
-                if self.read_symbol('-'):
-                    value = -1
-                return NumberNode(self.token_stream.take(NumberLiteral).value * value)
-            except DifferentTokenException:
-                return None
-        return self.token_stream.capture(op)
+    def multiple(self, first, other):
+        try:
+            return first(self)
+        except FailedCapture:
+            val = other(self)
+            return val
 
     def check_symbol(self, value):
         if self.token_stream.is_match(Symbol):

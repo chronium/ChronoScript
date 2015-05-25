@@ -1,6 +1,6 @@
 __author__ = 'chronium'
 
-class Ast(object):
+class Ast:
     def __init__(self, value, name):
         self.value = value
         self.name = name
@@ -10,11 +10,13 @@ class Ast(object):
 
     def __str__(self):
         try:
+            if isinstance(self.value, str):
+                raise TypeError
             return '%s(%s)' % (self.name, ', '.join(map(str, self.value)))
         except TypeError:
             return '%s(%s)' % (self.name, str(self.value))
 
-class Program(object):
+class Program:
     def __init__(self):
         self.nodes = []
 
@@ -34,3 +36,7 @@ class NumberNode(Ast):
 class ExpressionNode(Ast):
     def __init__(self, value):
         super(ExpressionNode, self).__init__(value, 'Expression')
+
+class FunctionCallNode(Ast):
+    def __init__(self, value):
+        super(FunctionCallNode, self).__init__(value, 'Function Call')

@@ -2,7 +2,7 @@ from ScriptingLanguage.Tokens import EOF
 
 __author__ = 'chronium'
 
-class Matcher(object):
+class Matcher:
     def is_match(self, tokenizer):
         pass
 

@@ -6,7 +6,7 @@ __author__ = 'chronium'
 class UnknownTokenException(Exception):
     pass
 
-class Lexer(object):
+class Lexer:
     def __init__(self, source, matchers):
         self.tokenizer = Tokenizer(source)
         self.matchers = matchers

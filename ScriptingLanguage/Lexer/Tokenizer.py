@@ -20,7 +20,7 @@ class Stack:
         return len(self.items)
 
 
-class TokenizableBaseStream(object):
+class TokenizableBaseStream:
     def __init__(self, source):
         self.index = 0
         self.items = source
