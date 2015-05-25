@@ -6,7 +6,7 @@ def muldiv(parser):
     def op():
         try:
             left = parser.number()
-            if parser.check_symbol('*') or parser.check_symbol('/'):
+            if parser.check_symbol('*') or parser.check_symbol('/') or parser.check_symbol('%'):
                 symbol = parser.token_stream.read()
                 right = muldiv(parser)
                 return ExpressionNode((left, symbol.value, right))
