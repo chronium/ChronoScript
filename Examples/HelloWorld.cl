@@ -1,3 +1,3 @@
-get stdout from System.Streams
+import * from System.Streams
 
 "Hello, world!" >> stdout
