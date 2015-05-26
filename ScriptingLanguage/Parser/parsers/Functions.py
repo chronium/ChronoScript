@@ -1,6 +1,6 @@
 from ScriptingLanguage.Parser.AstNode import FunctionCallNode, FunctionDefNode
 from ScriptingLanguage.Parser.ParsableTokenStream import DifferentTokenException
-from ScriptingLanguage.Tokens import Identifier
+from ScriptingLanguage.Tokens import Identifier, NewLine
 
 __author__ = 'chronium'
 
@@ -22,7 +22,7 @@ def function_def(parser):
             try:
                 name = parser.token_stream.take(Identifier)
                 if parser.read_symbol('(') is not None and parser.read_symbol(')') is not None:
-                    parser.read_symbol(':=')
+                    parser.token_stream.take(NewLine)
                     return FunctionDefNode(name.value)
             except DifferentTokenException:
                 return None
