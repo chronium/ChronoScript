@@ -1,19 +1,19 @@
 class Person :=
-    this.init(name, age) =
+    func this.init(name, age) :=
         this.name = name
         this.age = age
 
-    string() = "%s is %d years old" % (name, age)
-    can_go_clubbing() =
+    func string() := "%s is %d years old" % (name, age)
+    func can_go_clubbing() :=
         if age > 18 do
             true
         false
 
 class Child -> Person :=
-    this.init(name, age) =
+    func this.init(name, age) :=
         super(name, age)
 
-    in_school() = age >= 7 && age < 14
+    func in_school() := age >= 7 && age < 14
 
 people = [] -> Person
 people[] = init Person("John", 34)
