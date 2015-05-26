@@ -10,6 +10,10 @@ class Whitespace(Token):
     def __init__(self):
         super(Whitespace, self).__init__(name='Space', value=' ')
 
+class NewLine(Token):
+    def __init__(self):
+        super(NewLine, self).__init__(name='Newline', value='')
+
 class Indent(Token):
     def __init__(self):
         super(Indent, self).__init__(name='Indent', value='    ')
@@ -17,6 +21,10 @@ class Indent(Token):
 class Identifier(Token):
     def __init__(self, value):
         super(Identifier, self).__init__(name='Identifier', value=value)
+
+class Keyword(Token):
+    def __init__(self, value):
+        super(Keyword, self).__init__(name='Keyword', value=value)
 
 class Symbol(Token):
     def __init__(self, value):

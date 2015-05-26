@@ -41,6 +41,10 @@ class FunctionCallNode(Ast):
     def __init__(self, value):
         super(FunctionCallNode, self).__init__(value, 'Function Call')
 
+class FunctionDefNode(Ast):
+    def __init__(self, value):
+        super(FunctionDefNode, self).__init__(value, 'Function Def')
+
 class AssignmentNode(Ast):
     def __init__(self, value):
         super(AssignmentNode, self).__init__(value, 'Assignment')

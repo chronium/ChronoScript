@@ -1,5 +1,5 @@
 from ScriptingLanguage.Lexer.Matcher import MatcherBase
-from ScriptingLanguage.Tokens import Whitespace, Identifier, Indent
+from ScriptingLanguage.Tokens import Whitespace, Identifier, Indent, NewLine
 
 __author__ = 'chronium'
 
@@ -10,6 +10,10 @@ class MatchWhitespace(MatcherBase):
         if ''.join(tokenizer.peek_multiple(4)) == '    ':
             tokenizer.index += 4
             return Indent()
+
+        if tokenizer.current() == '\n':
+            tokenizer.consume()
+            return NewLine()
 
         while not tokenizer.end() and (not tokenizer.current().strip() or tokenizer.current() == '\r'):
             found_white_space = True
