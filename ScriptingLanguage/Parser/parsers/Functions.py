@@ -1,4 +1,5 @@
-from ScriptingLanguage.Parser.AstNode import FunctionCallNode, FunctionDefNode
+from ScriptingLanguage.Parser.AstNode import FunctionDefNode
+from ScriptingLanguage.Parser.AstNodes.FunctionNodes import FunctionCallNode
 from ScriptingLanguage.Parser.ParsableTokenStream import DifferentTokenException
 from ScriptingLanguage.Tokens import Identifier, NewLine
 

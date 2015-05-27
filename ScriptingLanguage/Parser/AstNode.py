@@ -33,10 +33,6 @@ class ExpressionNode(Ast):
     def visit(self):
         return visit_expression(self)
 
-class FunctionCallNode(Ast):
-    def __init__(self, value):
-        super(FunctionCallNode, self).__init__(value, 'Function Call')
-
 class FunctionDefNode(Ast):
     def __init__(self, value):
         super(FunctionDefNode, self).__init__(value, 'Function Def')
