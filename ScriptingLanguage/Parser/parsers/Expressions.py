@@ -1,7 +1,7 @@
-from ScriptingLanguage.Parser.AstNode import ExpressionNode, NumberNode
+from ScriptingLanguage.Parser.AstNode import ExpressionNode, NumberNode, VariableNode
 from ScriptingLanguage.Parser.ParsableTokenStream import FailedCapture, DifferentTokenException
 from ScriptingLanguage.Parser.parsers.Functions import function_call
-from ScriptingLanguage.Tokens import NumberLiteral
+from ScriptingLanguage.Tokens import NumberLiteral, Identifier
 
 __author__ = 'chronium'
 
@@ -16,6 +16,15 @@ def number(parser):
             return None
     return parser.token_stream.capture(op)
 
+def variable(parser):
+    def op():
+        try:
+            name = parser.token_stream.take(Identifier)
+            return VariableNode(name.value)
+        except DifferentTokenException:
+            return None
+    return parser.token_stream.capture(op)
+
 def operand(parser):
     def op():
         try:
@@ -24,11 +33,16 @@ def operand(parser):
             try:
                 return function_call(parser)
             except FailedCapture:
-                return None
+                try:
+                    return variable(parser)
+                except FailedCapture:
+                    return None
     return parser.token_stream.capture(op)
 
 def expression(parser):
     def op():
+        if parser.token_stream.peek(1).value == '=':
+            return None
         try:
             return addsub(parser)
         except FailedCapture:
@@ -41,7 +55,7 @@ def muldiv(parser):
             left = operand(parser)
             if parser.check_symbol('*') or parser.check_symbol('/') or parser.check_symbol('%'):
                 symbol = parser.token_stream.read()
-                right = muldiv(parser)
+                right = operand(parser)
                 return ExpressionNode((left, symbol.value, right))
             return left
         except FailedCapture:
@@ -54,7 +68,7 @@ def addsub(parser):
             left = muldiv(parser)
             if parser.check_symbol('+') or parser.check_symbol('-'):
                 symbol = parser.token_stream.read()
-                right = muldiv(parser)
+                right = expression(parser)
                 return ExpressionNode((left, symbol.value, right))
             return left
         except FailedCapture:

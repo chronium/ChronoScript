@@ -1,3 +1,6 @@
+from ScriptingLanguage.Visitors.AssignmentVisitor import visit_assignment
+from ScriptingLanguage.Visitors.ExpressionVisitor import visit_expression, visit_number, visit_var
+
 __author__ = 'chronium'
 
 class Ast:
@@ -5,8 +8,8 @@ class Ast:
         self.value = value
         self.name = name
 
-    def visit(self, func):
-        func(self)
+    def visit(self):
+        pass
 
     def __str__(self):
         try:
@@ -16,26 +19,19 @@ class Ast:
         except TypeError:
             return '%s(%s)' % (self.name, str(self.value))
 
-class Program:
-    def __init__(self):
-        self.nodes = []
-
-    def add_node(self, node):
-        self.nodes.append(node)
-
-    def __str__(self):
-        return 'Program:[%s]' % ', '.join(map(str, self.nodes))
-
 class NumberNode(Ast):
     def __init__(self, value):
         super(NumberNode, self).__init__(value, 'Number')
 
-    def visit(self, func):
-        super(NumberNode, self).visit(func)
+    def visit(self):
+        return visit_number(self)
 
 class ExpressionNode(Ast):
     def __init__(self, value):
         super(ExpressionNode, self).__init__(value, 'Expression')
+
+    def visit(self):
+        return visit_expression(self)
 
 class FunctionCallNode(Ast):
     def __init__(self, value):
@@ -51,3 +47,13 @@ class AssignmentNode(Ast):
 
     def __str__(self):
         return "%s('%s', %s)" % (self.name, str(self.value[0]), str(self.value[1]))
+
+    def visit(self):
+        return visit_assignment(self)
+
+class VariableNode(Ast):
+    def __init__(self, value):
+        super(VariableNode, self).__init__(value, 'Variable')
+
+    def visit(self):
+        return visit_var(self)
