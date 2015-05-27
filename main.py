@@ -16,6 +16,7 @@ input_string = open('Examples/test.crs').read()
 
 symbols = ['=', ' ', ':=', '-', '+', '.', '*', '/', '%', '(', ')', '->']
 keywords = ['func']
+matchers = [MatchWhitespace(), MatchNumber(), MatchSymbol(symbols), MatchKeyword(keywords), MatchIdentifier(symbols)]
 
 def exit_func():
     print('Goodbye!')
@@ -27,12 +28,12 @@ def return_five():
 global_dict['__func__ret5'] = return_five
 
 if __name__ == '__main__':
-    matchers = [MatchWhitespace(), MatchNumber(), MatchSymbol(symbols), MatchKeyword(keywords), MatchIdentifier(symbols)]
     parser = Parser()
 
     if len(sys.argv) == 2 and sys.argv[1] == '-t':
         lexer = Lexer(input_string, matchers)
-        parser.parse_immediate(lexer)
+        program = parser.parse(lexer)
+        print(program)
     else:
         while True:
             code = input('>>>') + '\n'

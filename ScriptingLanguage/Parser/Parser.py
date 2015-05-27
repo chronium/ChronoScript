@@ -12,10 +12,12 @@ class Parser:
     def __init__(self):
         self.token_stream = None
 
-    def parse(self):
+    def parse(self, line):
+        self.token_stream = ParsableTokenStream(line)
         program = Program()
 
         while not isinstance(self.token_stream.current(), EOF):
+            program.add_node(self.parse_line())
             '''
             try:
                 value = expression(self)
@@ -31,7 +33,6 @@ class Parser:
                         except FailedCapture:
                             value = None
             '''
-            program.add_node(self.parse_line())
         return program
 
     def parse_immediate(self, line):
