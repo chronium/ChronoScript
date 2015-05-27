@@ -8,6 +8,8 @@ from ScriptingLanguage.Parser.AstNode import ExpressionNode
 from ScriptingLanguage.Parser.Parser import Parser
 from ScriptingLanguage.Visitors.ExpressionVisitor import visit_expression
 
+import sys
+
 __author__ = 'chronium'
 
 input_string = open('Examples/test.crs').read()
@@ -27,10 +29,15 @@ global_dict['__func__ret5'] = return_five
 if __name__ == '__main__':
     matchers = [MatchWhitespace(), MatchNumber(), MatchSymbol(symbols), MatchKeyword(keywords), MatchIdentifier(symbols)]
     parser = Parser()
-    while True:
-        code = input('>>>') + '\n'
-        lexer = Lexer(code, matchers)
-        node, indents = parser.parse_immediate(lexer)
-        res = node.visit()
-        if res is not None:
-            print(res)
+
+    if len(sys.argv) == 2 and sys.argv[1] == '-t':
+        lexer = Lexer(input_string, matchers)
+        parser.parse_immediate(lexer)
+    else:
+        while True:
+            code = input('>>>') + '\n'
+            lexer = Lexer(code, matchers)
+            node, indents = parser.parse_immediate(lexer)
+            res = node.visit()
+            if res is not None:
+                print(res)
