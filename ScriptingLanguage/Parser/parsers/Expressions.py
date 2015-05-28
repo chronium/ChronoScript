@@ -41,7 +41,7 @@ def operand(parser):
 
 def expression(parser):
     def op():
-        if parser.token_stream.peek(1).value == '=':
+        if parser.token_stream.peek(1) is None or parser.token_stream.peek(1).value == '=':
             return None
         try:
             return addsub(parser)

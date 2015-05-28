@@ -15,3 +15,7 @@ class Program:
 class LineNode(Ast):
     def __init__(self, value):
         super(LineNode, self).__init__(value, 'Line')
+
+class BodyNode(Ast):
+    def __init__(self, value):
+        super(BodyNode, self).__init__(value, 'Body')
