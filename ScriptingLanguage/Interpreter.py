@@ -40,16 +40,26 @@ class Scoping:
         return None
 
 class Interpreter:
-    scoping = Scoping()
+    instance = None
 
-    def add_function(self, name, func):
-        self.scoping.add_function(name, func)
+    def __init__(self):
+        if not Interpreter.instance:
+            self.instance = self.__Interpreter()
 
-    def get_function(self, name):
-        return self.scoping.get_function(name)
+    def __getattr__(self, name):
+        return getattr(self.instance, name)
 
-    def add_variable(self, name, value):
-        self.scoping.add_variable(name, value)
+    class __Interpreter:
+        scoping = Scoping()
 
-    def get_variable(self, name):
-        return self.scoping.get_variable(name)
+        def add_function(self, name, func):
+            self.scoping.add_function(name, func)
+
+        def get_function(self, name):
+            return self.scoping.get_function(name)
+
+        def add_variable(self, name, value):
+            self.scoping.add_variable(name, value)
+
+        def get_variable(self, name):
+            return self.scoping.get_variable(name)
