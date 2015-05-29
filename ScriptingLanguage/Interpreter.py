@@ -7,6 +7,9 @@ class Scope:
         self.name = name
         self.items = {}
 
+class UndefinedVariable(Exception):
+    pass
+
 class Scoping:
     scopes = Stack()
     index = 0
@@ -37,7 +40,7 @@ class Scoping:
         for scope in self.scopes.items:
             if '__var__' + name in scope.items:
                 return scope.items['__var__' + name]
-        return None
+        raise UndefinedVariable
 
 class Interpreter:
     instance = None

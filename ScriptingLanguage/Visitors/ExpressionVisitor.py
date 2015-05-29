@@ -1,4 +1,5 @@
-from ScriptingLanguage import Interpreter
+from ScriptingLanguage.Interpreter import Interpreter, UndefinedVariable
+
 __author__ = 'chronium'
 
 def visit_expression(expression):
@@ -19,8 +20,8 @@ def visit_expression(expression):
 
 def visit_var(identifier):
     try:
-        return Interpreter.get_variable(identifier.value)
-    except KeyError:
+        return Interpreter().get_variable(identifier.value)
+    except UndefinedVariable:
         print('[{}] is undefined'.format(identifier.value))
         return 0
 

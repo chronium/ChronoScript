@@ -16,21 +16,19 @@ symbols = ['=', ' ', ':=', '-', '+', '.', '*', '/', '%', '(', ')', '->']
 keywords = ['func']
 matchers = [MatchWhitespace(), MatchNumber(), MatchSymbol(symbols), MatchKeyword(keywords), MatchIdentifier(symbols)]
 scoping = Scoping()
-interpreter = Interpreter()
 scoping.add_scope_unindexed()
 parser = Parser()
 
 def exit_func():
     print('Goodbye!')
     exit()
-interpreter.add_function('exit', exit_func)
+Interpreter().add_function('exit', exit_func)
 
 def return_five():
     return 5
-interpreter.add_function('ret5', return_five)
+Interpreter().add_function('ret5', return_five)
 
 if __name__ == '__main__':
-
     if len(sys.argv) == 2 and sys.argv[1] == '-t':
         lexer = Lexer(input_string, matchers)
         program = parser.parse(lexer)
