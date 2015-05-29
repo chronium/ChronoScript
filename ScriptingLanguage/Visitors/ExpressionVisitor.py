@@ -1,5 +1,3 @@
-from ScriptingLanguage.Interpreter import global_dict
-
 __author__ = 'chronium'
 
 def visit_expression(expression):
@@ -20,7 +18,7 @@ def visit_expression(expression):
 
 def visit_var(identifier):
     try:
-        return global_dict[identifier.value]
+        return interpreter.get_variable(identifier.value)
     except KeyError:
         print('[{}] is undefined'.format(identifier.value))
         return 0

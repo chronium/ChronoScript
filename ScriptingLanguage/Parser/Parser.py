@@ -1,4 +1,3 @@
-from ScriptingLanguage.Lexer.Lexer import Lexer
 from ScriptingLanguage.Parser.AstNodes.FunctionNodes import FunctionNode
 from ScriptingLanguage.Parser.AstNodes.ProgramNodes import Program, BodyNode
 from ScriptingLanguage.Parser.ParsableTokenStream import ParsableTokenStream, DifferentTokenException, FailedCapture
@@ -40,7 +39,8 @@ class Parser:
         lines = []
         init_indent = self.get_indentation()
         lines.append(self.parse_line())
-        while self.token_stream.current() and self.get_indentation() == init_indent and not isinstance(self.token_stream.current(), EOF):
+        while self.token_stream.current() and self.get_indentation() == init_indent \
+                and not isinstance(self.token_stream.current(), EOF):
             lines.append(self.parse_line())
         return BodyNode(lines)
 
