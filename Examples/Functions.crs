@@ -1,12 +1,12 @@
 func foo(x) ret x * 3
 
 func bar(x, y)
-    if x < 10 do
+    if x < 10
         z = foo(x)
     else
         z = 5
 
-    if y != 0 do
+    if y != 0
         y += foo(z)
         write(y)
 
