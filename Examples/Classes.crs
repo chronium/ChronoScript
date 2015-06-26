@@ -7,7 +7,7 @@ class Person
         ret "%s is %d years old" % (name, age)
 
     func can_go_clubbing()
-        if age > 18 do
+        if age > 18
             ret true
         ret false
 
